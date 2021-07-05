@@ -8,3 +8,15 @@ export const SONGS_LIST_QUERY = gql`
     }
   }
 `;
+
+export const SONG_LIST_QUERY = gql`
+  query GetSong($id: ID!) {
+    song(id: $id) {
+      title
+      id
+      lyrics {
+        content
+      }
+    }
+  }
+`;

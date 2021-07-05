@@ -30,7 +30,6 @@ const SongCreate = () => {
       variables: { title: song },
     });
     setSong("");
-    history.push("/");
   };
 
   return (
