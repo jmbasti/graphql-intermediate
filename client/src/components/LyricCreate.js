@@ -5,17 +5,33 @@ import { SONG_LIST_QUERY } from "./../queries/index";
 
 const LyricCreate = ({ id }) => {
   const [lyric, setLyric] = useState("");
-  const { refetch } = useQuery(SONG_LIST_QUERY, {
-    variables: { id: id },
+  const [addLyricToSong] = useMutation(ADD_LYRIC, {
+    update(cache, { data }) {
+      const newLyricFromResponse = data?.addLyricToSong.lyrics;
+      const existingLyrics = cache.readQuery({
+        query: SONG_LIST_QUERY,
+        variables: { id: id },
+      });
+
+      console.log(existingLyrics);
+
+      if (existingLyrics && newLyricFromResponse) {
+        cache.writeQuery({
+          query: SONG_LIST_QUERY,
+          variables: { id: id },
+          data: {
+            lyrics: [...existingLyrics.song.lyrics, newLyricFromResponse],
+          },
+        });
+      }
+    },
   });
-  const [addLyricToSong] = useMutation(ADD_LYRIC);
 
   const handleSubmit = () => {
     addLyricToSong({
       variables: { content: lyric, songId: id },
     });
     setLyric("");
-    refetch();
   };
   return (
     <div className="container">
