@@ -29,7 +29,7 @@ const LyricsList = ({ id }) => {
   };
   return (
     <ul>
-      {lyrics.map((lyric, index) => (
+      {lyrics?.map((lyric, index) => (
         <li
           key={index}
           style={{

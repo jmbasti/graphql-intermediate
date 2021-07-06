@@ -25,10 +25,8 @@ const SongList = () => {
     <div>
       <ul className="collection">
         {data.songs.map(({ title, id }, index) => (
-          <li
-            onClick={() => handleSongDetail(id)}
+          <div
             key={id}
-            className="collection-item"
             style={{
               display: "flex",
               alignItems: "center",
@@ -36,11 +34,16 @@ const SongList = () => {
               cursor: "pointer",
             }}
           >
-            {title}
+            <li
+              onClick={() => handleSongDetail(id)}
+              className="collection-item"
+            >
+              {title}
+            </li>
             <i onClick={() => handleDeleteSong(id)} className="material-icons">
               delete
             </i>
-          </li>
+          </div>
         ))}
       </ul>
       <Link className="btn-floating btn-large red right" to="/create">
